@@ -6,19 +6,6 @@ using System.Threading.Tasks;
 
 namespace CoolHomePatch.Patches
 {
-	[HarmonyPatch(typeof(ConsoleManager), nameof(ConsoleManager.Initialize))]
-	internal class AddCommands
-	{
-		internal static void Postfix()
-		{
-			if (!uConsole.CommandIsRegistered("chpdebug"))
-			{
-				uConsole.RegisterCommand("chpdebug", new Action(CHPUtils.CONSOLE_CHPDebug));
-				uConsole.RegisterCommand("chpdebug2", new Action(CHPUtils.CONSOLE_CHPDebug2));
-			}
-		}
-	}
-
 	[HarmonyPatch(typeof(PlayerManager), nameof(PlayerManager.ExitMeshPlacement))]
 	internal static class ExitMeshPlacement
 	{
@@ -27,6 +14,4 @@ namespace CoolHomePatch.Patches
 			MelonCoroutines.Start(new FireGUIDCoroutine().WaitForSceneToLoad());
 		}
 	}
-
-
 }

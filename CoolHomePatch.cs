@@ -15,20 +15,13 @@ namespace CoolHomePatch
             
         }
 
-		public override void OnSceneWasInitialized(int buildIndex, string sceneName)
-		{
-
-		}
-
 		public override void OnSceneWasLoaded(int buildIndex, string sceneName)
 		{
 			if (!IsScenePlayable()) return;
 
 			if (sceneName.EndsWith("_SANDBOX"))
 			{
-
-				MelonLogger.Msg($"Scene: {sceneName}");
-				//SafehouseCustomization+ items seem to load a bit after the scene and after initial items. I believe this is the reason why SC+ doesn't assign them GUIDs in their project.
+				//SafehouseCustomization+ item positions seem to load a bit after the scene and after initial items. Need item's position to assign it a seeded GUID.
 				MelonCoroutines.Start(new FireGUIDCoroutine().WaitForSceneToLoad());
 			}
 		}
@@ -44,26 +37,24 @@ namespace CoolHomePatch
 	{
 		internal System.Collections.IEnumerator WaitForSceneToLoad()
 		{
-			MelonLogger.Msg("--------------------------------");
-
 			yield return new WaitForSeconds(1);
 
 			Fire[] allGOs = GameObject.FindObjectsOfType<Fire>();
 
 			foreach (Fire fire in allGOs)
 			{
-				MelonLogger.Msg($"FireGUIDCoroutine: {fire.name} at {fire.transform.position}");
+				//MelonLogger.Msg($"FireGUIDCoroutine: {fire.name} at {fire.transform.position}");
 
 				ObjectGuid og = fire.GetComponent<ObjectGuid>();
 
 				if (og != null && og.PDID != null)
 				{
-					MelonLogger.Msg($"Fire already registered under '{og.PDID}'");
+					//MelonLogger.Msg($"Fire already registered under '{og.PDID}'");
 					continue;
 				}
 
 				//SafehouseCustomization+ Patch
-				MelonLogger.Msg($"ObjectGUID or PDID is null. Attempting to patch.");
+				//MelonLogger.Msg($"ObjectGUID or PDID is null. Attempting to patch.");
 				og = fire.GetOrAddComponent<ObjectGuid>();
 
 				//Generate seed from position
@@ -78,11 +69,8 @@ namespace CoolHomePatch
 
 				PdidTable.RuntimeAddOrReplace(og, newGuid.ToString());
 
-				MelonLogger.Msg($"Added GUID {og.PDID} to object {fire.name} at {fire.transform.position}");
+				//MelonLogger.Msg($"Added GUID {og.PDID} to object {fire.name} at {fire.transform.position}");
 			}
-
-			MelonLogger.Msg("--------------------------------");
-
 		}
 	}
 }

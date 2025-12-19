@@ -18,14 +18,14 @@ namespace CoolHomePatch
 		/// <remarks>
 		/// <para>This is used in logs that relate to this mod. So this should always be Alphanumerical, without exception</para>
 		/// </remarks>
-		public const string Name                            = "TEMPLATE";
+		public const string Name                            = "CoolHomePatch";
 		/// <summary>Who made the mod</summary>
-		public const string Author                          = "UNKNOWN";
+		public const string Author                          = "Zanda268";
 		/// <summary>Current version</summary>
 		/// <value>This should always be <see href="https://semver.org">Semantic Versioning</see></value>
 		public const string Version                         = "1.0.0";
 		/// <summary>Name used on GUI's, like ModSettings</summary>
-		public const string GUIName                         = "TEMPLATE";
+		public const string GUIName                         = "Cool Home Patch";
 		/// <summary>The minimum Melon Loader version that your mod requires</summary>
 		/// <remarks>
 		/// <para>This should only be increased if you actually require a newer version of MelonLoader. NEVER change it before an update has been properly tested</para>
